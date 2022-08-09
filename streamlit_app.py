@@ -3,11 +3,11 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import openai
+
 
 """
 ### Welcome Back to Streamlit!
-
-st.write("Model Id:", st.secrets["finetune_id"])
 
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
 
@@ -17,6 +17,26 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 
+openai.api_key = st.secrets["api_key"]
+fine_tuned_model = st.secrets["finetune_id"]
+
+"You can get the Id but not the Key"
+st.write("Model Id:", st.secrets["finetune_id"])
+
+def check_worthiness(tweet):
+    tweet = tweet + "\n\n###\n\n"
+    result = openai.Completion.create(model = fine_tuned_model, prompt=str(tweet), max_tokens=10, temperature=0)['choices'][0]['text'] 
+    print('- ', tweet, ': ', result)
+    return result
+
+
+input = st.text_input('Input:')
+if st.button('Submit'):
+    st.write('**Output**')
+    st.write(f"""---""")
+        with st.spinner(text='In progress'):
+            report_text = check_worthiness(input)
+            st.markdown(report_text)
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
