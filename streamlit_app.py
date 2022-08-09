@@ -18,7 +18,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 openai.api_key = st.secrets["api_key"]
-fine_tuned_model = st.secrets["finetune_id"]
+fine_tuned_model = "ada:ft-personal-2022-08-09-12-35-53"
 
 "You can get the Id but not the Key"
 st.write("Model Id:", st.secrets["finetune_id"])
