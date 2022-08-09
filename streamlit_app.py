@@ -34,9 +34,9 @@ input = st.text_input('Input:')
 if st.button('Submit'):
     st.write('**Output**')
     st.write(f"""---""")
-        with st.spinner(text='In progress'):
-            report_text = check_worthiness(input)
-            st.markdown(report_text)
+    with st.spinner(text='In progress'):
+        report_text = check_worthiness(input)
+        st.markdown(report_text)
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
